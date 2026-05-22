@@ -1,4 +1,4 @@
-package com.caijr.backend.DTOs;
+package com.catijr.backend.DTOs;
 
 public record GetMusicDTO() {
 }
