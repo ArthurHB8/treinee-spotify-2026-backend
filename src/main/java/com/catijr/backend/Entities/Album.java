@@ -46,8 +46,9 @@ public class Album {
     //Relação com musica
 
     @ManyToOne
+    @JoinColumn(name = "artist")
     private Artist owner;
 
-    @OneToMany
-    private List<Music> catalog;
+    @OneToMany(mappedBy = "album")
+    private List<Music> musics;
 }

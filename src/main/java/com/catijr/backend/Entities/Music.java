@@ -32,8 +32,8 @@ public class Music {
     @JoinColumn(name = "album")
     private Album album;
 
-    @ManyToMany
-    private List<PlaylistMusic> playlist;
+    @ManyToMany(mappedBy = "songs")
+    private List<Playlist> playlists;
 
     @Column(name = "duration")
     private int duration;

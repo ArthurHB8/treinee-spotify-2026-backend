@@ -45,9 +45,9 @@ public class Artist {
         this.updatedAt = Instant.now();
     }
 
-    @OneToMany
+    @OneToMany(mappedBy = "artist")
     public List<Music> songs;
 
-    @OneToMany
+    @OneToMany(mappedBy = "owner")
     public List<Album> albums;
 }
