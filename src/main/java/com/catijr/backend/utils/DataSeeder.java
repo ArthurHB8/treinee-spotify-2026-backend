@@ -32,6 +32,13 @@ public class DataSeeder implements CommandLineRunner {
 
         System.out.println("====== INICIANDO SEEDER: ARQUITETURA CONSOLIDADA ======");
 
+        var artists = artistRepository.findAll();
+
+        if (artists.size() > 0) {
+            System.out.println(">>> Banco de dados já iniciado! Pulando Seeding...");
+            return;
+        }
+
         List<Music> allCreatedSongs = new ArrayList<>();
 
         // 1. Gerar 5 Artistas
