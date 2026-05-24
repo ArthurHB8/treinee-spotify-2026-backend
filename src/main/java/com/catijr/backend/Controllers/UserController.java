@@ -3,6 +3,12 @@ package com.catijr.backend.Controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.catijr.backend.Entities.Album;
+import com.catijr.backend.Entities.Artist;
+import com.catijr.backend.Entities.Music;
+import com.catijr.backend.Entities.Playlist;
+import com.catijr.backend.Services.UserService;
+
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -17,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class UserController {
     
+    private final UserService userService;
+
     /*
     GET METHOD:
 
@@ -27,8 +35,8 @@ public class UserController {
 
     */
     @GetMapping("/playlists")
-    public String getUserPlaylists(@RequestParam String param) {
-        return new String();
+    public List<Playlist> getUserPlaylists(@RequestParam String param) {
+        return userService.getUserPlaylists();
     }
 
     /*
@@ -40,8 +48,8 @@ public class UserController {
     initialized in the database
     */
     @GetMapping("/recentArtists")
-    public String getUserRecentArtists(@RequestParam String param) {
-        return new String();
+    public List<Artist> getUserRecentArtists(@RequestParam String param) {
+        return userService.getUserRecentArtists();
     }
     
 
@@ -55,8 +63,8 @@ public class UserController {
 
     */
     @GetMapping("/mostPlayedArtists")
-    public String getUserMostPlayedArtists(@RequestParam String param) {
-        return new String();
+    public List<Artist> getUserMostPlayedArtists(@RequestParam String param) {
+        return userService.getUserMostPlayedArtists();
     }
 
     /*
@@ -68,8 +76,8 @@ public class UserController {
     initialized in the database
     */
     @GetMapping("/recentMusics")
-    public String getUserRecentMusics(@RequestParam String param) {
-        return new String();
+    public List<Music> getUserRecentMusics(@RequestParam String param) {
+        return userService.getUserRecentMusics();
     }
 
     /*
@@ -81,8 +89,8 @@ public class UserController {
     initialized in the database
     */
     @GetMapping("/mostPlayedMusics")
-    public String getUserMostPlayedMusics(@RequestParam String param) {
-        return new String();
+    public List<Music> getUserMostPlayedMusics(@RequestParam String param) {
+        return userService.getUserMostPlayedMusics();
     }
 
      /*
@@ -94,8 +102,8 @@ public class UserController {
     initialized in the database
     */
     @GetMapping("/recentAlbums")
-    public String getUserRecentAlbums(@RequestParam String param) {
-        return new String();
+    public List<Album> getUserRecentAlbums(@RequestParam String param) {
+        return userService.getUserRecentAlbums();
     }
 
     /*

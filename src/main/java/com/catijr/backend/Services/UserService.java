@@ -37,7 +37,7 @@ public class UserService {
         return artistRepository.findTop5ByListeners();
     }
 
-    public List<Music> getUserMostRecentMusics(){
+    public List<Music> getUserRecentMusics(){
         return musicRepository.findTop5By();
     }
 
@@ -45,7 +45,7 @@ public class UserService {
         return musicRepository.findTop5ByTimesListen();
     }
 
-    public List<Album> getRecentAlbums(){
+    public List<Album> getUserRecentAlbums(){
         return albumRepository.findTop5By();
     }
 
