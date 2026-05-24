@@ -4,6 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.catijr.backend.DTOs.GetAlbumDTO;
+import com.catijr.backend.DTOs.GetArtistDTO;
+import com.catijr.backend.DTOs.GetMusicDTO;
+import com.catijr.backend.DTOs.GetPlaylistDTO;
 import com.catijr.backend.Entities.Album;
 import com.catijr.backend.Entities.Artist;
 import com.catijr.backend.Entities.Music;
@@ -12,6 +16,10 @@ import com.catijr.backend.Repositories.AlbumRepository;
 import com.catijr.backend.Repositories.ArtistRepository;
 import com.catijr.backend.Repositories.MusicRepository;
 import com.catijr.backend.Repositories.PlaylistRepository;
+import com.catijr.backend.Mappers.AlbumMapper;
+import com.catijr.backend.Mappers.ArtistMapper;
+import com.catijr.backend.Mappers.MusicMapper;
+import com.catijr.backend.Mappers.PlaylistMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,29 +32,46 @@ public class UserService {
     private final PlaylistRepository    playlistRepository;
     private final ArtistRepository      artistRepository;
 
+    private final AlbumMapper           albumMapper;
+    private final PlaylistMapper        playlistMapper;
+    private final ArtistMapper          artistMapper;
+    private final MusicMapper           musicMapper;
 
-    public List<Playlist> getUserPlaylists(){
-        return playlistRepository.findAll();
+
+    public List<GetPlaylistDTO> getUserPlaylists(){
+        List<Playlist> albums = playlistRepository.findAll();
+        
+        return albums.stream().map(playlistMapper::toDTO).toList();
     }
 
-    public List<Artist> getUserRecentArtists(){
-        return artistRepository.findTop5By();
+    public List<GetArtistDTO> getUserRecentArtists(){
+        List<Artist> artists = artistRepository.findTop5By();
+
+        return artists.stream().map(artistMapper::toDTO).toList();   
     }
 
-    public List<Artist> getUserMostPlayedArtists(){
-        return artistRepository.findTop5ByListeners();
+    public List<GetArtistDTO> getUserMostPlayedArtists(){
+        List<Artist> artists = artistRepository.findTop5ByOrderByListenersDesc();
+        
+        return artists.stream().map(artistMapper::toDTO).toList();
     }
 
-    public List<Music> getUserRecentMusics(){
-        return musicRepository.findTop5By();
+    public List<GetMusicDTO> getUserRecentMusics(){
+        List<Music> musics = musicRepository.findTop5By();
+
+        return musics.stream().map(musicMapper::toDTO).toList();
     }
 
-    public List<Music> getUserMostPlayedMusics(){
-        return musicRepository.findTop5ByTimesListen();
+    public List<GetMusicDTO> getUserMostPlayedMusics(){
+        List<Music> musics = musicRepository.findTop5ByOrderByTimesListenDesc();
+
+        return musics.stream().map(musicMapper::toDTO).toList();
     }
 
-    public List<Album> getUserRecentAlbums(){
-        return albumRepository.findTop5By();
+    public List<GetAlbumDTO> getUserRecentAlbums(){
+        List<Album> albums= albumRepository.findTop5By();
+
+        return albums.stream().map(albumMapper::toDTO).toList();
     }
 
 

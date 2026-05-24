@@ -12,5 +12,5 @@ public interface MusicRepository extends JpaRepository<Music, UUID> {
 
     List<Music> findTop5By();
 
-    List<Music> findTop5ByTimesListen();
+    List<Music> findTop5ByOrderByTimesListenDesc();
 }

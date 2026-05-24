@@ -3,10 +3,11 @@ package com.catijr.backend.Controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.catijr.backend.Entities.Album;
-import com.catijr.backend.Entities.Artist;
-import com.catijr.backend.Entities.Music;
-import com.catijr.backend.Entities.Playlist;
+import com.catijr.backend.DTOs.GetAlbumDTO;
+import com.catijr.backend.DTOs.GetArtistDTO;
+import com.catijr.backend.DTOs.GetMusicDTO;
+import com.catijr.backend.DTOs.GetPlaylistDTO;
+
 import com.catijr.backend.Services.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -35,7 +35,7 @@ public class UserController {
 
     */
     @GetMapping("/playlists")
-    public List<Playlist> getUserPlaylists(@RequestParam String param) {
+    public List<GetPlaylistDTO> getUserPlaylists() {
         return userService.getUserPlaylists();
     }
 
@@ -48,7 +48,7 @@ public class UserController {
     initialized in the database
     */
     @GetMapping("/recentArtists")
-    public List<Artist> getUserRecentArtists(@RequestParam String param) {
+    public List<GetArtistDTO> getUserRecentArtists() {
         return userService.getUserRecentArtists();
     }
     
@@ -63,7 +63,7 @@ public class UserController {
 
     */
     @GetMapping("/mostPlayedArtists")
-    public List<Artist> getUserMostPlayedArtists(@RequestParam String param) {
+    public List<GetArtistDTO> getUserMostPlayedArtists() {
         return userService.getUserMostPlayedArtists();
     }
 
@@ -76,7 +76,7 @@ public class UserController {
     initialized in the database
     */
     @GetMapping("/recentMusics")
-    public List<Music> getUserRecentMusics(@RequestParam String param) {
+    public List<GetMusicDTO> getUserRecentMusics() {
         return userService.getUserRecentMusics();
     }
 
@@ -89,7 +89,7 @@ public class UserController {
     initialized in the database
     */
     @GetMapping("/mostPlayedMusics")
-    public List<Music> getUserMostPlayedMusics(@RequestParam String param) {
+    public List<GetMusicDTO> getUserMostPlayedMusics() {
         return userService.getUserMostPlayedMusics();
     }
 
@@ -102,7 +102,7 @@ public class UserController {
     initialized in the database
     */
     @GetMapping("/recentAlbums")
-    public List<Album> getUserRecentAlbums(@RequestParam String param) {
+    public List<GetAlbumDTO> getUserRecentAlbums() {
         return userService.getUserRecentAlbums();
     }
 
@@ -114,7 +114,7 @@ public class UserController {
     fixed set of data not initialized in the database
     */ 
     @GetMapping("/followers")
-    public List<String> getUserFollowers(@RequestParam String param) {
+    public List<String> getUserFollowers() {
         List<String> followers =new ArrayList<>(List.of("deadbeat7","xmc0-Infinity","John Doe", "Jose Manuel Alberto Lopez","XCS_2026"));
 
         return followers;
