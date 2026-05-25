@@ -2,7 +2,7 @@ package com.catijr.backend.Mappers;
 
 import org.mapstruct.Mapper;
 
-import com.catijr.backend.DTOs.GetMusicDTO;
+import com.catijr.backend.DTOs.Music.GetMusicDTO;
 import com.catijr.backend.Entities.Music;
 
 @Mapper(componentModel="spring")

@@ -3,11 +3,10 @@ package com.catijr.backend.Controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.catijr.backend.DTOs.GetAlbumDTO;
-import com.catijr.backend.DTOs.GetArtistDTO;
-import com.catijr.backend.DTOs.GetMusicDTO;
-import com.catijr.backend.DTOs.GetPlaylistDTO;
-
+import com.catijr.backend.DTOs.Album.GetAlbumNoMusicsDTO;
+import com.catijr.backend.DTOs.Artist.GetArtistDTO;
+import com.catijr.backend.DTOs.Music.GetMusicDTO;
+import com.catijr.backend.DTOs.Playlist.GetPlaylistDTO;
 import com.catijr.backend.Services.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -102,7 +101,7 @@ public class UserController {
     initialized in the database
     */
     @GetMapping("/recentAlbums")
-    public List<GetAlbumDTO> getUserRecentAlbums() {
+    public List<GetAlbumNoMusicsDTO> getUserRecentAlbums() {
         return userService.getUserRecentAlbums();
     }
 

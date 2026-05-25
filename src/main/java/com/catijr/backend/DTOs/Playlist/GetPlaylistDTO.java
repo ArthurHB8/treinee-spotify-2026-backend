@@ -1,4 +1,4 @@
-package com.catijr.backend.DTOs;
+package com.catijr.backend.DTOs.Playlist;
 
 import com.catijr.backend.Entities.Playlist;
 

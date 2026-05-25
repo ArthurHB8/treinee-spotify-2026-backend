@@ -1,4 +1,4 @@
-package com.catijr.backend.DTOs;
+package com.catijr.backend.DTOs.Artist;
 
 import com.catijr.backend.Entities.Artist;
 
