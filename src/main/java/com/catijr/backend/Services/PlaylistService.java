@@ -5,6 +5,11 @@ import com.catijr.backend.DTOs.Playlist.PutPlaylistDTO;
 import com.catijr.backend.Entities.Music;
 import com.catijr.backend.Entities.Playlist;
 import com.catijr.backend.Repositories.MusicRepository;
+import com.catijr.backend.DTOs.Playlist.CreatePlaylistDTO;
+import com.catijr.backend.DTOs.Playlist.GetPlaylistDTO;
+import com.catijr.backend.Entities.Music;
+import com.catijr.backend.Entities.Playlist;
+import com.catijr.backend.Mappers.PlaylistMapper;
 import com.catijr.backend.Repositories.PlaylistRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,7 +19,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +26,7 @@ public class PlaylistService {
 
     private final PlaylistRepository playlistRepository;
     private final MusicRepository musicRepository;
+    private final PlaylistMapper playlistMapper;
 
     public Playlist getPlaylistById(UUID playlistId) {
         var playlist = playlistRepository.findById(playlistId)
@@ -70,6 +75,14 @@ public class PlaylistService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
+  
+    public GetPlaylistDTO createPlaylist(CreatePlaylistDTO playlist){
+        Playlist playlistEntity = playlistMapper.toEntity(playlist);
+        Playlist savedEntity = playlistRepository.save(playlistEntity);
+
+        return playlistMapper.toDTO(savedEntity);
+    }
+
 
     public void deletePlaylistById(UUID playlistId) {
         if (playlistRepository.existsById(playlistId)) {
