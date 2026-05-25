@@ -2,13 +2,22 @@ package com.catijr.backend.DTOs.Playlist;
 
 import com.catijr.backend.Entities.Playlist;
 
-public record GetPlaylistNoMusicDTO(String name, String description) {
+import java.time.Instant;
+import java.util.UUID;
 
-    public GetPlaylistNoMusicDTO(Playlist playlist) {
+public record GetPlaylistNoMusicDTO(UUID id, String name, String description, int musicQtd,
+                                    int duration, Instant createdAt, Instant updatedAt ){
+
+    public GetPlaylistNoMusicDTO(Playlist playlist){
         this(
-                playlist.getName(),
-                playlist.getDescription()
+            playlist.getId(),
+            playlist.getName(),
+            playlist.getDescription(),
+            playlist.getMusicQtd(),
+            playlist.getDuration(),
+            playlist.getCreatedAt(),
+            playlist.getUpdatedAt()
+
         );
     }
-
 }
