@@ -12,11 +12,15 @@ import com.catijr.backend.Entities.Music;
 import com.catijr.backend.Entities.Playlist;
 import com.catijr.backend.Mappers.PlaylistMapper;
 import com.catijr.backend.Repositories.PlaylistRepository;
+import com.catijr.backend.Storage.LocalImageStorage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +32,7 @@ public class PlaylistService {
     private final PlaylistRepository playlistRepository;
     private final MusicRepository musicRepository;
     private final PlaylistMapper playlistMapper;
+    private final LocalImageStorage imageStorage;
 
     public Playlist getPlaylistById(UUID playlistId) {
         var playlist = playlistRepository.findById(playlistId)
@@ -77,11 +82,24 @@ public class PlaylistService {
         }
     }
   
+    public Playlist setPlaylistImage(UUID playlistId, MultipartFile file) {
+        var playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        try {
+            playlist.setImagePath(imageStorage.save(file));
+        } catch (IOException | NoSuchAlgorithmException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to store image", e);
+        }
+
+        return playlistRepository.save(playlist);
+    }
+
     public GetPlaylistNoMusicDTO createPlaylist(CreatePlaylistDTO playlist){
         Playlist playlistEntity = playlistMapper.toEntity(playlist);
         Playlist savedEntity = playlistRepository.save(playlistEntity);
 
-        return playlistMapper.toDTO(savedEntity);
+        return new GetPlaylistNoMusicDTO(savedEntity);
     }
 
 

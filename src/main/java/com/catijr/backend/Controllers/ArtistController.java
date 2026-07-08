@@ -8,8 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +28,16 @@ public class ArtistController {
     @GetMapping("{artistId}")
     public ResponseEntity<GetArtistDTO> getArtistById(@PathVariable String artistId) {
         var artist = artistService.getArtistById(UUID.fromString(artistId));
+
+        GetArtistDTO responseDTO = new GetArtistDTO(artist);
+
+        return ResponseEntity.ok(responseDTO);
+    }
+
+    @PostMapping("{artistId}/image")
+    public ResponseEntity<GetArtistDTO> setArtistImage(@PathVariable String artistId,
+                                                        @RequestParam("file") MultipartFile file) {
+        var artist = artistService.setArtistImage(UUID.fromString(artistId), file);
 
         GetArtistDTO responseDTO = new GetArtistDTO(artist);
 

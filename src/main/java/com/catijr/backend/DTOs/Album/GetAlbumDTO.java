@@ -2,6 +2,7 @@ package com.catijr.backend.DTOs.Album;
 
 import com.catijr.backend.DTOs.Music.GetMusicDTO;
 import com.catijr.backend.Entities.Album;
+import com.catijr.backend.Storage.LocalImageStorage;
 
 import java.time.Instant;
 import java.util.List;
@@ -12,6 +13,7 @@ public record GetAlbumDTO(UUID id, String title,
                           String year, UUID artistId,
                           String artistName,
                           List<GetMusicDTO> musics,
+                          String imageUrl,
                           Instant createdAt, Instant updatedAt) {
 
     public GetAlbumDTO(Album album) {
@@ -22,9 +24,10 @@ public record GetAlbumDTO(UUID id, String title,
                 album.getOwner().getId(),
                 album.getOwner().getName(),
                 album.getMusics().stream().map(GetMusicDTO::new).collect(Collectors.toList()),
+                LocalImageStorage.toUrl(album.getImagePath()),
                 album.getCreatedAt(),
                 album.getUpdatedAt()
         );
     }
-    
+
 }

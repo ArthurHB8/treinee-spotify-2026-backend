@@ -33,6 +33,9 @@ public class Playlist {
     @Column(name = "duration")
     private int duration;
 
+    @Column(name = "image_path")
+    private String imagePath;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

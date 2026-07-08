@@ -11,6 +11,7 @@ import com.catijr.backend.Services.PlaylistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/playlist/")
+@RequestMapping("/playlist")
 @RequiredArgsConstructor
 public class PlaylistController {
 
@@ -44,6 +45,16 @@ public class PlaylistController {
         return ResponseEntity.ok(responseDTO);
     }
 
+    @PostMapping("{playlistId}/image")
+    public ResponseEntity<GetPlaylistDTO> setPlaylistImage(@PathVariable String playlistId,
+                                                            @RequestParam("file") MultipartFile file) {
+        var playlist = playlistService.setPlaylistImage(UUID.fromString(playlistId), file);
+
+        GetPlaylistDTO responseDTO = new GetPlaylistDTO(playlist);
+
+        return ResponseEntity.ok(responseDTO);
+    }
+
     @PatchMapping("{playlistId}/{musicId}")
     public ResponseEntity<GetPlaylistDTO> addMusicToPlaylist(@PathVariable String playlistId,
                                                              @PathVariable String musicId) {
@@ -54,11 +65,11 @@ public class PlaylistController {
         return ResponseEntity.ok(responseDTO);
     }
     
-    @PostMapping("/")
-    public GetPlaylistNoMusicDTO postMethodName(@RequestBody CreatePlaylistDTO playlist) {
+    @PostMapping
+    public GetPlaylistNoMusicDTO createPlaylist(@RequestBody CreatePlaylistDTO playlist) {
         return playlistService.createPlaylist(playlist);
     }
-    
+
 
     @DeleteMapping("{playlistId}")
     public ResponseEntity<Void> deletePlaylistById(@PathVariable String playlistId) {

@@ -32,6 +32,9 @@ public class Artist {
     @Column(name = "about")
     private String about;
 
+    @Column(name = "image_path")
+    private String imagePath;
+
     @Column(name = "created_at")
     private Instant createdAt;
 
